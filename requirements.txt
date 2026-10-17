@@ -1,0 +1,11 @@
+# Pinned runtime dependencies (used by Streamlit Community Cloud and CI).
+# Versions verified together on 2026-10-18; ranges live in pyproject.toml.
+duckdb==1.5.6
+httpx==0.28.1
+pandas==3.0.6
+plotly==7.1.0
+pyarrow==26.0.0
+pydantic==2.14.1
+streamlit==1.66.0
+# The project package itself (src/ layout).
+-e .

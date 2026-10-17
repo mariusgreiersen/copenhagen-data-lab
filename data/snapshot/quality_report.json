@@ -1,0 +1,178 @@
+[
+  {
+    "check_id": "R0",
+    "name": "Meaningful extraction",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 195075,
+    "invalid_records": 0,
+    "explanation": "195,075 records returned for 3 request(s); 195,075 cells requested.",
+    "executed_at_utc": "2026-10-17T23:13:27.205779+00:00"
+  },
+  {
+    "check_id": "A",
+    "name": "Required columns",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 7,
+    "invalid_records": 0,
+    "explanation": "All 7 expected columns present.",
+    "executed_at_utc": "2026-10-17T23:13:27.207783+00:00"
+  },
+  {
+    "check_id": "R1",
+    "name": "Unit recognised",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 1,
+    "invalid_records": 0,
+    "explanation": "Table unit is 'Number' (expected 'Number': persons).",
+    "executed_at_utc": "2026-10-17T23:13:27.207783+00:00"
+  },
+  {
+    "check_id": "R2",
+    "name": "Period identifiers",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 195075,
+    "invalid_records": 0,
+    "explanation": "All period codes match the StatBank quarter format YYYYKq.",
+    "executed_at_utc": "2026-10-17T23:13:27.316779+00:00"
+  },
+  {
+    "check_id": "G",
+    "name": "Referential validity",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 195075,
+    "invalid_records": 0,
+    "explanation": "Every area, sex, age, marital-status and period code exists in the table metadata.",
+    "executed_at_utc": "2026-10-17T23:13:27.354280+00:00"
+  },
+  {
+    "check_id": "B",
+    "name": "Data types",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 195075,
+    "invalid_records": 0,
+    "explanation": "195,075 integer counts and 0 recognised missing-value markers; no unparseable values.",
+    "executed_at_utc": "2026-10-17T23:13:27.383293+00:00"
+  },
+  {
+    "check_id": "C",
+    "name": "Nonnegative values",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 195075,
+    "invalid_records": 0,
+    "explanation": "No negative population counts.",
+    "executed_at_utc": "2026-10-17T23:13:27.426289+00:00"
+  },
+  {
+    "check_id": "D",
+    "name": "Unique observation keys",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 195075,
+    "invalid_records": 0,
+    "explanation": "Grain: request × OMRÅDE × KØN × ALDER × CIVILSTAND × TID. No duplicates.",
+    "executed_at_utc": "2026-10-17T23:13:27.486291+00:00"
+  },
+  {
+    "check_id": "D2",
+    "name": "Cross-request consistency",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 1350,
+    "invalid_records": 0,
+    "explanation": "1,350 cells appear in more than one request; all values agree.",
+    "executed_at_utc": "2026-10-17T23:13:27.545290+00:00"
+  },
+  {
+    "check_id": "R3",
+    "name": "Cube completeness",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 195075,
+    "invalid_records": 0,
+    "explanation": "Rows returned vs cells requested — area_totals: 23,625/23,625; focus_age_detail: 171,450/171,450.",
+    "executed_at_utc": "2026-10-17T23:13:27.551292+00:00"
+  },
+  {
+    "check_id": "E",
+    "name": "Missing values",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 195075,
+    "invalid_records": 0,
+    "explanation": "0.000% of observations missing (warning up to 1.0%, blocked above). 27,269 reported zeros are kept as valid zero counts.",
+    "executed_at_utc": "2026-10-17T23:13:27.562291+00:00"
+  },
+  {
+    "check_id": "F",
+    "name": "Time continuity",
+    "stage": "raw",
+    "severity": "warning",
+    "status": "pass",
+    "records_tested": 75,
+    "invalid_records": 0,
+    "explanation": "75 quarters 2008K1–2026K3; no gaps.",
+    "executed_at_utc": "2026-10-17T23:13:27.563291+00:00"
+  },
+  {
+    "check_id": "H1",
+    "name": "Aggregate consistency: sex",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 64575,
+    "invalid_records": 0,
+    "explanation": "Men + women equal the official total. 64,575 groups compared, 0 mismatched.",
+    "executed_at_utc": "2026-10-17T23:13:28.045290+00:00"
+  },
+  {
+    "check_id": "H2",
+    "name": "Aggregate consistency: age",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 1350,
+    "invalid_records": 0,
+    "explanation": "Single-year ages sum to the official age total. 1,350 groups compared, 0 mismatched.",
+    "executed_at_utc": "2026-10-17T23:13:28.305803+00:00"
+  },
+  {
+    "check_id": "H3",
+    "name": "Aggregate consistency: municipalities",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 225,
+    "invalid_records": 0,
+    "explanation": "Municipalities plus Christiansø sum to the All Denmark total. 225 groups compared, 0 mismatched.",
+    "executed_at_utc": "2026-10-17T23:13:28.383832+00:00"
+  },
+  {
+    "check_id": "H4",
+    "name": "Aggregate consistency: regions",
+    "stage": "raw",
+    "severity": "critical",
+    "status": "pass",
+    "records_tested": 225,
+    "invalid_records": 0,
+    "explanation": "The five regions sum to the All Denmark total. 225 groups compared, 0 mismatched.",
+    "executed_at_utc": "2026-10-17T23:13:28.431346+00:00"
+  }
+]

@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "copenhagen-data-lab"
+version = "1.0.0"
+description = "End-to-end data engineering and analytics platform built on official Statistics Denmark (StatBank) population data."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Marius Greiersen" }]
+requires-python = ">=3.11"
+dependencies = [
+    "duckdb>=1.1",
+    "httpx>=0.27",
+    "pandas>=2.2",
+    "plotly>=5.24",
+    "pyarrow>=17",
+    "pydantic>=2.8",
+    "streamlit>=1.44",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.8",
+]
+
+[project.scripts]
+cdl-pipeline = "copenhagen_data_lab.pipeline.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/copenhagen_data_lab"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "dashboard", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "C4", "PTH"]
+# Line length is enforced by `ruff format`; long string literals (SQL, CSS) are left intact.
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["copenhagen_data_lab", "components", "fixtures", "conftest"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "live: talks to the real StatBank API (opt-in with CDL_LIVE_TESTS=1)",
+]
+filterwarnings = ["ignore::DeprecationWarning:plotly.*"]

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environment
+.env
+
+# Pipeline outputs (rebuilt from the committed snapshot; never committed)
+data/warehouse/
+data/build/
+data/raw/
+data/runs/
+data/snapshot.new/
+data/snapshot.previous/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,95 @@
+name: Refresh data
+
+# FOLK1A is quarterly (new quarters appear roughly six weeks after each 1 Jan/Apr/Jul/Oct).
+# A monthly check catches each release within a few weeks without polling needlessly; most
+# runs will find no new data and end without a pull request.
+on:
+  schedule:
+    - cron: "17 6 15 * *" # 06:17 UTC on the 15th of every month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Extract from StatBank and propose a new snapshot
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e ".[dev]"
+
+      - name: Live API smoke test
+        env:
+          CDL_LIVE_TESTS: "1"
+        run: pytest tests/live -v
+
+      - name: Extract, validate, transform, load, verify (StatBank API)
+        # Fails the job (exit code 1) on any API error or critical quality check.
+        # data/snapshot is only rewritten when every check passed AND the content changed.
+        run: python -m copenhagen_data_lab.pipeline --source api --log-json
+
+      - name: Re-validate the new snapshot offline, end to end
+        run: |
+          python -m copenhagen_data_lab.pipeline --source snapshot
+          python scripts/check_warehouse.py
+          pytest tests/integration/test_real_snapshot_e2e.py -v
+
+      - name: Detect snapshot changes
+        id: diff
+        run: |
+          if git diff --quiet -- data/snapshot; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No new data: the committed snapshot is current."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            python -c "import json; m = json.load(open('data/snapshot/manifest.json', encoding='utf-8')); print('New snapshot', m['snapshot_version'], m['coverage'])"
+          fi
+
+      - name: Upload snapshot and run log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: folk1a-refresh-${{ github.run_id }}
+          path: |
+            data/snapshot/
+            data/runs/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Open a pull request with the validated snapshot
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: data-refresh/folk1a
+          delete-branch: true
+          add-paths: data/snapshot
+          commit-message: "data: refresh FOLK1A snapshot from StatBank"
+          title: "Data refresh: new FOLK1A snapshot"
+          body: |
+            Automated refresh from the Statistics Denmark StatBank API.
+
+            * Every raw and post-load quality check passed in this run (see the workflow log
+              and the `quality_report.json` in the snapshot).
+            * The snapshot was rebuilt and re-validated offline before this PR was opened.
+            * Merging publishes the data: the deployed dashboard rebuilds its warehouse from
+              the committed snapshot on its next start.
+
+            Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

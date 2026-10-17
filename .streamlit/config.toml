@@ -1,0 +1,36 @@
+[server]
+headless = true
+runOnSave = false
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "minimal"
+showErrorDetails = "type"
+
+[theme]
+base = "light"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap, sans-serif"
+headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap, sans-serif"
+headingFontWeights = [650, 600, 600, 600, 600, 600]
+baseFontSize = 15
+primaryColor = "#1d5fae"
+backgroundColor = "#f5f7fa"
+secondaryBackgroundColor = "#eaeef4"
+textColor = "#1b2533"
+linkColor = "#1d5fae"
+borderColor = "#dfe4ec"
+dataframeHeaderBackgroundColor = "#eef2f7"
+showWidgetBorder = true
+baseRadius = "0.6rem"
+# Validated categorical order (see dashboard/components/theme.py).
+chartCategoricalColors = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
+
+[theme.sidebar]
+backgroundColor = "#0f1e33"
+secondaryBackgroundColor = "#1a2c47"
+textColor = "#dfe6f0"
+borderColor = "#24385a"
+primaryColor = "#7fb0f0"
+showWidgetBorder = false
