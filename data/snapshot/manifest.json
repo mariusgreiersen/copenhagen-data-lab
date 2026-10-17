@@ -21,8 +21,8 @@
     "attribution": "Source: Statistics Denmark"
   },
   "extraction": {
-    "run_id": "20261017T231304Z-751a6a",
-    "extracted_at_utc": "2026-10-17T23:13:04.845783+00:00",
+    "run_id": "20261017T232144Z-41e550",
+    "extracted_at_utc": "2026-10-17T23:21:44.389416+00:00",
     "format": "CSV",
     "value_presentation": "Code",
     "language": "en",
@@ -745,10 +745,10 @@
   "content_sha256": "2f63e714008ba8950cb4f73f26d644a684e2e2942476095d87f182f39d98a71b",
   "pipeline_version": "1.0.0",
   "transformation_version": "2026.10.1",
-  "published_at_utc": "2026-10-17T23:13:35.151950+00:00",
+  "published_at_utc": "2026-10-17T23:22:14.413696+00:00",
   "files": {
     "raw_population.parquet": "ac03cb7e126d5cc5fb08536b0ed1bbc3e5c7210e96e4e0295f1b465f53902a52",
-    "tableinfo.json": "1c760fbd5b9965211b4b2e2ff13e3373d8d56fdd31f56505d3f220c473012764",
-    "quality_report.json": "a812f8981f27110bff18e9f97589f4b7410fb9998788758a0104c3ab0f296ca7"
+    "tableinfo.json": "b49ae4876adbbe0112e3296a474c8b4a667f606df964d3f2cac94a45640d865e",
+    "quality_report.json": "736de218e0b8f8461d52ce262832d2bea29b6f27d78329cc3b74739536b5c954"
   }
 }

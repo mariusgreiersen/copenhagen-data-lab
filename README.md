@@ -18,7 +18,7 @@ analytics dashboard.**
   online.
 - **25 automated quality checks** run before and after loading, including an independent
   recalculation of key metrics. All of them pass on the current data.
-- **98 automated tests and CI.** CI never depends on the live API, and a monthly workflow
+- **Over 100 automated tests and CI.** CI never depends on the live API, and a monthly workflow
   proposes data refreshes as pull requests.
 - **A 7-page interactive dashboard** for trends, demographics, municipality comparisons, a
   data explorer and pipeline health.
@@ -126,7 +126,7 @@ To pull fresh data from Statistics Denmark, run
 ## Tests and CI
 
 ```bash
-pytest                                  # 97 offline tests: unit, integration, end-to-end, dashboard
+pytest                                  # all offline tests: unit, integration, end-to-end, dashboard
 CDL_LIVE_TESTS=1 pytest tests/live      # optional smoke test against the real API
 ruff check . && ruff format --check .
 ```

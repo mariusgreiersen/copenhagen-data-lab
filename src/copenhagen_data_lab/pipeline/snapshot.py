@@ -72,9 +72,10 @@ def snapshot_version(table_id: str, last_period: str, checksum: str) -> str:
 
 
 def _write_json(path: Path, payload: object) -> None:
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2, default=str) + "\n", encoding="utf-8"
-    )
+    # Written as bytes so the file is identical on every OS: text mode would turn "\n" into
+    # "\r\n" on Windows, and the manifest checksums must match on any checkout.
+    text = json.dumps(payload, ensure_ascii=False, indent=2, default=str) + "\n"
+    path.write_bytes(text.encode("utf-8"))
 
 
 def build_manifest(

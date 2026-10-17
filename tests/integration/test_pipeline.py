@@ -143,3 +143,10 @@ def test_published_snapshot_omits_personal_contact_details(settings):
     assert "x@example.invalid" not in published
     archived = next(settings.raw_archive_dir.glob("*/tableinfo.json")).read_text(encoding="utf-8")
     assert "contacts" in json.loads(archived)  # verbatim copy stays local (git-ignored)
+
+
+def test_snapshot_files_are_byte_identical_across_platforms(settings):
+    """JSON must be written with LF endings, or checksums break on another OS's checkout."""
+    assert run_api(settings).status == "success"
+    for path in settings.snapshot_dir.glob("*.json"):
+        assert b"\r" not in path.read_bytes(), path.name
